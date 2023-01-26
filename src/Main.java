@@ -60,7 +60,26 @@ public class Main {
         };
         System.out.println(randomInteger1.get());
 
+        System.out.println("____________________________________-");
+        Function<Integer,Integer> multiplyToTwo = x -> x * 2;
+        Function<Integer,Integer> multiplyToThree = x -> x * 3;
+        Predicate<Integer> isOdd = x -> x % 2 !=0;
+        Function<Integer,Integer>  result = ternaryOperator(isOdd,multiplyToTwo,multiplyToThree);
+        result.apply(9);
+
     }
+
+    public static <T, U> Function<T, U> ternaryOperator(
+            Predicate<? super T> condition,
+            Function<? super T, ? extends U> ifTrue,
+            Function<? super T, ? extends U> ifFalse) {
+        return t -> {
+            U result = condition.test(t) ? ifTrue.apply(t):ifFalse.apply(t);
+            System.out.println(result);
+            return result;
+        };
+    }
+
 
     }
 
